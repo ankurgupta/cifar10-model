@@ -11,9 +11,6 @@
 - **Depthwise Separable Convolution** used in the intial convolution block.
 - Final Global Receptive field is : 93 with the help of dilated convolution
 
-- **Training and Validation Logs** attached here for reference.[[**Training_Logs**]](./training_logs.md)
-- You can find the Colab Notebook here. [[**Notebook**]](./CIFAR10_model_1.ipynb)
-
 ## Model Details
 
 - 4 Convolution Block used
