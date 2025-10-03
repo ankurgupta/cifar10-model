@@ -1,35 +1,32 @@
-CIFAR 10 - Model : 85% Accuracy on 150K paramaeters
-Summary
-This model is created on CIFAR 10 dataset
+# CIFAR 10 - Model : 85% Accuracy on 150K paramaeters
 
-It has got 85% accuracy with 150K paramaeters
+## Summary
 
-Used Albumentation library for image Augmentations.
+- This model is created on CIFAR 10 dataset
+- It has got **85%** accuracy with **150K** paramaeters
+- Used **Albumentation** library for image Augmentations.
+- _Horizonatal Flip_, _shiftScaleRotate_ , _coarseDropout_ is being used from Albumentation library.
+- _Strided_ Convolution is uded instead of Maxpooling whenever required.
+- **Dilated convolution** is used in the layer before the GAP layer to increase the Receptive field
+- **Depthwise Separable Convolution** used in the intial convolution block.
+- Final Global Receptive field is : 93 with the help of dilated convolution
 
-Horizonatal Flip, shiftScaleRotate , coarseDropout is being used from Albumentation library.
+- **Training and Validation Logs** attached here for reference.[[**Training_Logs**]](./training_logs.md)
+- You can find the Colab Notebook here. [[**Notebook**]](./CIFAR10_model_1.ipynb)
 
-Strided Convolution is uded instead of Maxpooling whenever required.
+## Model Details
 
-Dilated convolution is used in the layer before the GAP layer to increase the Receptive field
+- 4 Convolution Block used
+- Structure : C1 ➡ C2 ➡ C3 ➡ C4 ➡ Output
+- C1, C2, C3, C4 are convolution blocks and O is the output block
+- Each block has varied number of layers from 1 to 4.
+- C1 blcok will have **Depthwise Separable Convolution** layer.
+- C4 block will have **Dilated Convolution** layer.
+- Albumentation library used for _Horizonatal Flip_, _shiftScaleRotate_ , _coarseDropout_
+- GAP layer and 1x1 convolution is used in the output layer instead of FC layer.
+- **Parameters** - 150,576 number of trainable paramters
 
-Depthwise Separable Convolution used in the intial convolution block.
-
-Final Global Receptive field is : 93 with the help of dilated convolution
-
-Training and Validation Logs attached here for reference.[Training_Logs]
-
-You can find the Colab Notebook here. [Notebook]
-
-Model Details
-4 Convolution Block used
-Structure : C1 ➡ C2 ➡ C3 ➡ C4 ➡ Output
-C1, C2, C3, C4 are convolution blocks and O is the output block
-Each block has varied number of layers from 1 to 4.
-C1 blcok will have Depthwise Separable Convolution layer.
-C4 block will have Dilated Convolution layer.
-Albumentation library used for Horizonatal Flip, shiftScaleRotate , coarseDropout
-GAP layer and 1x1 convolution is used in the output layer instead of FC layer.
-Parameters - 150,576 number of trainable paramters
+```
 cuda
 ----------------------------------------------------------------
         Layer (type)               Output Shape         Param #
@@ -98,3 +95,4 @@ Forward/backward pass size (MB): 4.74
 Params size (MB): 0.57
 Estimated Total Size (MB): 5.33
 ----------------------------------------------------------------
+```
